@@ -1,13 +1,19 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
+import LoginPage from './src/LoginPage';
+import LectureListPage from './src/LectureListPage';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Text, View} from 'react-native';
+const Stack = createNativeStackNavigator();
 
-const App = () => {
+export default function App() {
   return (
-    <View>
-      <Text>Attendance Check System</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="LectureListPage" component={LectureListPage} />
+        <Stack.Screen name="Login" component={LoginPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-
-export default App;
+}
