@@ -11,8 +11,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="LectureListPage" component={LectureListPage} />
         <Stack.Screen name="Login" component={LoginPage} />
+        <Stack.Screen name="LectureListPage" component={LectureListPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
