@@ -1,17 +1,29 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TextInput, Button, Alert} from 'react-native';
-import {db} from '../db';
+import {storeData} from './utils/storeData';
 
 export default function LoginPage({navigation}) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
-  const handleSubmit = () => {
-    console.log(id, pw);
-    if (db[0].id === id && db[0].pw === pw) {
+  console.log(process.env.API_URL);
+  const handleSubmit = async () => {
+    const result = await (
+      await fetch('http://192.168.0.141:3003/api/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          id,
+          pw,
+        }),
+      })
+    ).json();
+
+    if (result.login === 'success') {
+      storeData('id', id);
       navigation.navigate('LectureListPage');
     } else {
-      Alert.alert('로그인 정보가 일치하지 않습니다.');
+      Alert.alert(result.message);
     }
   };
 
