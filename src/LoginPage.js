@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TextInput, Button, Alert} from 'react-native';
 import {storeData} from './utils/storeData';
+import {API_URL} from './utils/ip';
 
 export default function LoginPage({navigation}) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
-  console.log(process.env.API_URL);
+  console.log(API_URL);
   const handleSubmit = async () => {
     const result = await (
-      await fetch('http://192.168.0.141:3003/api/login', {
+      await fetch(`${API_URL}:3003/api/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({

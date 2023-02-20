@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Button, Text, Alert} from 'react-native';
 import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
+import {API_URL} from './utils/ip';
 
 export default function LectureListPage({navigation}) {
   const [verified, setVerified] = useState();
@@ -31,7 +32,7 @@ export default function LectureListPage({navigation}) {
 
   //data_check()
   const onPress = async lecture => {
-    console.log('press');
+    // 생체 인증 지원 X
     if (!availableState) {
       setVerified(1);
       Alert.alert('bio 없어서 임시로 인증 완료');
@@ -40,30 +41,43 @@ export default function LectureListPage({navigation}) {
       try {
         // Todo. week 값을 어떻게 자동으로 설정할지 고민해야함
         await fetch(
-          `${process.env.API_URL}/api/check?stdno=${my_stdno}&lecture=${lecture}&week=1`,
+          `${API_URL}:3003/api/check?stdno=${my_stdno}&lecture=${lecture}&week=1`,
         );
       } catch (error) {
         console.log(error);
       }
-    } else {
-      // Biometrics is supported
-      rnBiometrics
-        .simplePrompt({promptMessage: 'Confirm fingerprint'})
-        .then(resultObject => {
-          const {success} = resultObject;
-          if (success) {
-            console.log('successful biometrics provided');
-            setVerified(1);
-            Alert.alert('인증 완료');
-            // Todo. 출석 체크 API 호출
-          } else {
-            console.log('user cancelled biometric prompt');
-            setVerified(0);
-          }
+    }
+    // 생체 인증 지원 O
+    else {
+      // 인증
+      const {success} = await rnBiometrics
+        .simplePrompt({
+          promptMessage: 'Confirm fingerprint',
         })
         .catch(() => {
           console.log('biometrics failed');
         });
+
+      // 인증 여부에 따른 진행
+      if (success) {
+        console.log('successful biometrics provided');
+        setVerified(1);
+        Alert.alert('인증 완료');
+        try {
+          const my_stdno = 20183333;
+          console.log(
+            `${API_URL}:3003/api/check?stdno=${my_stdno}&lecture=${lecture}&week=3`,
+          );
+          await fetch(
+            `${API_URL}:3003/api/check?stdno=${my_stdno}&lecture=${lecture}&week=3`,
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        console.log('user cancelled biometric prompt');
+        setVerified(0);
+      }
     }
   };
 
