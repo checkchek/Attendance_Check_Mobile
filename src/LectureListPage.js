@@ -30,7 +30,6 @@ export default function LectureListPage({navigation}) {
     });
   });
 
-  //data_check()
   const onPress = async lecture => {
     // 생체 인증 지원 X
     if (!availableState) {
@@ -98,6 +97,8 @@ export default function LectureListPage({navigation}) {
           {verified ? '인증 완료' : '인증 실패'}
         </Text>
       </View>
+
+      <Button title="TEST"></Button>
     </View>
   );
 }
