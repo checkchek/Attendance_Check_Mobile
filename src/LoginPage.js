@@ -7,10 +7,9 @@ export default function LoginPage({navigation}) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
-  console.log(API_URL);
   const handleSubmit = async () => {
     const result = await (
-      await fetch(`${API_URL}:3003/api/login`, {
+      await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -22,6 +21,7 @@ export default function LoginPage({navigation}) {
 
     if (result.login === 'success') {
       storeData('id', id);
+      storeData('stdno', result.stdno);
       navigation.navigate('LectureListPage');
     } else {
       Alert.alert(result.message);
