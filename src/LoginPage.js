@@ -1,28 +1,19 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, TextInput, Button, Alert} from 'react-native';
-import {storeData} from './utils/storeData';
-import {API_URL} from './utils/ip';
+import React, { useState } from "react";
+import { StyleSheet, View, Text, TextInput, Button, Alert } from "react-native";
+import { storeData } from "./utils/storeData";
+import { postLogin } from "./utils/apis";
 
-export default function LoginPage({navigation}) {
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
+export default function LoginPage({ navigation }) {
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
 
   const handleSubmit = async () => {
-    const result = await (
-      await fetch(`${API_URL}/api/login`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          id,
-          pw,
-        }),
-      })
-    ).json();
+    const result = await postLogin(id, pw);
 
-    if (result.login === 'success') {
-      storeData('id', id);
-      storeData('stdno', result.stdno);
-      navigation.navigate('LectureListPage');
+    if (result.login === "success") {
+      storeData("id", id);
+      storeData("num", result.num);
+      navigation.navigate("LectureListPage");
     } else {
       Alert.alert(result.message);
     }
@@ -35,15 +26,15 @@ export default function LoginPage({navigation}) {
         style={styles.input}
         placeholder="ID를 입력해주세요."
         value={id}
-        onChangeText={val => setId(val)}
+        onChangeText={(val) => setId(val)}
       />
       <TextInput
         style={styles.input}
         placeholder="Password를 입력해주세요."
         value={pw}
-        onChangeText={val => setPw(val)}
+        onChangeText={(val) => setPw(val)}
       />
-      <Button onPress={handleSubmit} title="Submit" />
+      <Button onPress={handleSubmit} title="로그인" />
     </View>
   );
 }
@@ -51,12 +42,12 @@ export default function LoginPage({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   input: {
     height: 40,
-    width: '70%',
+    width: "70%",
     margin: 12,
     borderWidth: 1,
     padding: 10,
