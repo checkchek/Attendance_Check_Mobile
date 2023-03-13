@@ -5,6 +5,7 @@ import LectureListPage from "./src/LectureListPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { QueryClient, QueryClientProvider } from "react-query";
+import QRcodeScan from "./src/QRcodeScan";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,8 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="LectureListPage" component={LectureListPage} />
+          <Stack.Screen name="QRcodescan" component={QRcodeScan} />
+        
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

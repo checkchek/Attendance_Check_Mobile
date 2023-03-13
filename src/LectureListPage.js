@@ -91,7 +91,10 @@ export default function LectureListPage({ navigation }) {
       alert("인증 실패");
     }
   };
-  const onPressLoc = () => {};
+
+  console.log("Test")
+
+ 
 
   useEffect(() => {
     getData("num").then((v) => {
@@ -164,7 +167,10 @@ export default function LectureListPage({ navigation }) {
           curLecture.map((lecture, idx) => (
             <Item key={idx}>
               <H1>{lecture.name}</H1>
-              <Button title="위치 인증" onPress={() => {}} />
+              <Button 
+                title="위치 인증" 
+                onPress={()=> navigation.navigate('QRcodescan')}
+              />
               <Button
                 title="본인 인증"
                 onPress={() => onPressBio(lecture.name)}
