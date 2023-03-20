@@ -1,10 +1,11 @@
 import { getData } from "./storeData";
 
-export const API_URL = "http://172.20.10.2:3003";
+export const API_URL = "http://172.20.10.14:3003";
 
 export async function getLectures() {
   const num = await getData("num");
   const res = await fetch(`${API_URL}/api/lectureList?num=${num}`);
+
   return res.json();
 }
 
@@ -38,7 +39,11 @@ export async function getAttendanceList() {
   return res.json();
 }
 
-export async function getDataCheck(code) {
-  const res = await fetch(`${API_URL}/api/qr/auth?code=${code}`);
-  return res.json();
-}1
+export async function getDataCheck(code, lectureId) {
+  const res = await fetch(
+    `${API_URL}/api/qr/auth?code=${code}&lectureId=${lectureId}`
+  );
+  const jsonData = await res.json();
+  return jsonData;
+}
+1;

@@ -62,6 +62,7 @@ export default function LectureListPage({ navigation }) {
   );
   const [curLecture, setCurLecture] = useState([]);
   const [isHidden, setIsHidden] = useState(true);
+
   const valueToColor = (val) => {
     switch (val) {
       case -1:
@@ -151,7 +152,6 @@ export default function LectureListPage({ navigation }) {
 
     setCurLecture(cLecture);
   }, [lectures]);
-  console.log(curLecture);
 
   return (
     <Wrapper>
@@ -162,9 +162,9 @@ export default function LectureListPage({ navigation }) {
           curLecture.map((lecture, idx) => (
             <Item key={idx}>
               <H1>{lecture.name}</H1>
-              <Button 
-                title="위치 인증" 
-                onPress={()=> navigation.navigate('QRcodescan')}
+              <Button
+                title="위치 인증"
+                onPress={() => navigation.navigate("QRcodescan")}
               />
               <Button
                 title="본인 인증"
@@ -179,9 +179,8 @@ export default function LectureListPage({ navigation }) {
       <Section>
         <Title>내 강의 목록</Title>
         <LectureList>
-          {lectureLoading
-            ? null
-            : lectures.lecture_list.map((lecture, idx) => (
+          {!lectureLoading && num
+            ? lectures.lecture_list.map((lecture, idx) => (
                 <Lecture key={idx}>
                   <Item>
                     <H1>{lecture.name}</H1>
@@ -190,15 +189,16 @@ export default function LectureListPage({ navigation }) {
                     <AttendanceList>
                       {attendacneLoading
                         ? null
-                        : attendacne.result[lecture.name]?.map((v, idx) => (
-                            <Box key={idx} color={valueToColor(v)}>
-                              {idx + 1}
-                            </Box>
-                          ))}
+                        : attendacne
+                            .find((atList) => atList.name === lecture.name)
+                            .attendance[num].map((v, idx) => (
+                              <Box color={valueToColor(v)}>{idx}</Box>
+                            ))}
                     </AttendanceList>
                   </Item>
                 </Lecture>
-              ))}
+              ))
+            : null}
         </LectureList>
       </Section>
     </Wrapper>

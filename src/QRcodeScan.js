@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Alert } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { getDataCheck } from "./utils/apis";
-import { BackHandler } from 'react-native';
+import { BackHandler } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function QRcodeScan() {
@@ -12,7 +12,7 @@ export default function QRcodeScan() {
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     };
 
     getBarCodeScannerPermissions();
@@ -22,7 +22,7 @@ export default function QRcodeScan() {
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
+      "hardwareBackPress",
       handleBackPress
     );
 
@@ -36,9 +36,8 @@ export default function QRcodeScan() {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    console.log(type);
-    console.log(data);
-    const result = await getDataCheck(data);
+    const [code, lectureId] = data.split(",");
+    const result = await getDataCheck(code, lectureId);
     if (result.result === "success") {
       Alert.alert(result.message);
       handleBackPress();
@@ -60,16 +59,18 @@ export default function QRcodeScan() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {scanned && (
+        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
