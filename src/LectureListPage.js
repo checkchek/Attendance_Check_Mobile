@@ -61,7 +61,6 @@ export default function LectureListPage({ navigation }) {
     getAttendanceList
   );
   const [curLecture, setCurLecture] = useState([]);
-
   const [isHidden, setIsHidden] = useState(true);
   const valueToColor = (val) => {
     switch (val) {
@@ -91,10 +90,6 @@ export default function LectureListPage({ navigation }) {
       alert("인증 실패");
     }
   };
-
-  console.log("Test")
-
- 
 
   useEffect(() => {
     getData("num").then((v) => {

@@ -13,6 +13,7 @@ export default function LoginPage({ navigation }) {
     if (result.login === "success") {
       storeData("id", id);
       storeData("num", result.num);
+      Alert.alert(result.message);
       navigation.navigate("LectureListPage");
     } else {
       Alert.alert(result.message);

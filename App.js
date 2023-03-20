@@ -20,7 +20,6 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="LectureListPage" component={LectureListPage} />
           <Stack.Screen name="QRcodescan" component={QRcodeScan} />
-        
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

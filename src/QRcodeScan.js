@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { getDataCheck } from "./utils/apis";
+import { BackHandler } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function QRcodeScan() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
-  <View>
-    <Text>BarCodeScanner</Text>
-  </View>
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -18,9 +18,33 @@ export default function QRcodeScan() {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    console.log(type);
+    console.log(data);
+    const result = await getDataCheck(data);
+    if (result.result === "success") {
+      Alert.alert(result.message);
+      handleBackPress();
+    } else {
+      Alert.alert(result.message);
+    }
   };
 
   if (hasPermission === null) {
