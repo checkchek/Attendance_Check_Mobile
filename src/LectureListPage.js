@@ -192,7 +192,9 @@ export default function LectureListPage({ navigation }) {
                         : attendacne
                             .find((atList) => atList.name === lecture.name)
                             .attendance[num].map((v, idx) => (
-                              <Box color={valueToColor(v)}>{idx}</Box>
+                              <Box color={valueToColor(v)} key={idx}>
+                                {idx}
+                              </Box>
                             ))}
                     </AttendanceList>
                   </Item>
