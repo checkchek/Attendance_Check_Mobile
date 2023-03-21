@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TextInput, Button, Alert } from "react-native";
+import { StyleSheet, View, TextInput, Button, Alert } from "react-native";
 import { storeData } from "./utils/storeData";
 import { postLogin } from "./utils/apis";
 
@@ -13,6 +13,7 @@ export default function LoginPage({ navigation }) {
     if (result.login === "success") {
       storeData("id", id);
       storeData("num", result.num);
+
       Alert.alert(result.message);
       navigation.navigate("LectureListPage");
     } else {
@@ -22,7 +23,6 @@ export default function LoginPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Login Page</Text>
       <TextInput
         style={styles.input}
         placeholder="ID를 입력해주세요."
@@ -34,6 +34,7 @@ export default function LoginPage({ navigation }) {
         placeholder="Password를 입력해주세요."
         value={pw}
         onChangeText={(val) => setPw(val)}
+        secureTextEntry={true}
       />
       <Button onPress={handleSubmit} title="로그인" />
     </View>

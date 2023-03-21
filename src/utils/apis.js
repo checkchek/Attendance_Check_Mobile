@@ -24,12 +24,32 @@ export async function postLogin(id, pw) {
   return result;
 }
 
-export async function getCheck(num, lecture) {
-  const res = await (
-    await fetch(`${API_URL}/api/check?num=${num}&lecture=${lecture}&week=1`)
-  ).json();
+export async function getCheck(num, lectureId) {
+  console.log("heh", lectureId);
+  if (lectureId === -1) {
+    return undefined;
+  }
 
-  return res;
+  const getWeek = (date) => {
+    const currentDate = date.getTime();
+    const firstDay = new Date("2023-03-02").getTime();
+    const one = 84000000;
+    return Math.floor((currentDate - firstDay) / one / 7) + 1;
+  };
+  const now = new Date();
+  const week = getWeek(now);
+
+  try {
+    const res = await fetch(
+      `${API_URL}/api/check?num=${num}&lectureId=${lectureId}&week=${week}`
+    );
+    const jsonData = await res.json();
+    console.log(jsonData);
+    return jsonData;
+  } catch (e) {
+    console.log(e);
+  }
+  return undefined;
 }
 
 export async function getAttendanceList() {

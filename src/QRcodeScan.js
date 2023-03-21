@@ -4,10 +4,14 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { getDataCheck } from "./utils/apis";
 import { BackHandler } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { lectureState, locState } from "./atoms";
 
 export default function QRcodeScan() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const setLocCheck = useSetRecoilState(locState);
+  const [lectureId, setLectureId] = useRecoilState(lectureState);
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -16,7 +20,7 @@ export default function QRcodeScan() {
     };
 
     getBarCodeScannerPermissions();
-  }, []);
+  });
 
   const navigation = useNavigation();
 
@@ -36,10 +40,18 @@ export default function QRcodeScan() {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    const [code, lectureId] = data.split(",");
-    const result = await getDataCheck(code, lectureId);
+    let result;
+    const [code, qrLectureId] = data.split(",");
+
+    if (Number(qrLectureId) !== lectureId) {
+      alert("다른 강의 입니다.");
+    } else {
+      result = await getDataCheck(code, lectureId);
+    }
+
     if (result.result === "success") {
       Alert.alert(result.message);
+      setLocCheck(true);
       handleBackPress();
     } else {
       Alert.alert(result.message);
