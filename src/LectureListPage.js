@@ -39,7 +39,6 @@ const Item = styled(View)`
   justify-content: space-between;
 `;
 const AttendanceList = styled(View)`
-  display: ${(props) => props.display};
   flex-direction: row;
   flex-wrap: wrap;
   gap: 3px;
@@ -136,6 +135,7 @@ export default function LectureListPage({ navigation }) {
 
   const onPressBio = async (lecture) => {
     const authResult = await LocalAuthentication.authenticateAsync();
+    console.log(authResult);
     if (authResult.success) {
       alert("본인 인증 완료");
       setBioCheck(true);
