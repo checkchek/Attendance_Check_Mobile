@@ -18,22 +18,38 @@
       "favicon": "./assets/favicon.png"
     },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.seungu.AttendanceCheck",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
     },
     "android": {
+      "package": "com.seungu.AttendanceCheck",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      },
+      "permissions": [
+        "CAMERA",
+        "USE_FINGERPRINT",
+        "USE_BIOMETRIC",
+        "android.permission.CAMERA"
+      ]
     },
     "plugins": [
       [
         "expo-barcode-scanner",
         "expo-local-authentication"
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1bd9efdd-aae1-4a04-99b7-d847add7ebdf"
+      }
+    }
   }
 }
