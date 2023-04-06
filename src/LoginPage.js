@@ -1,7 +1,40 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Button, Alert } from "react-native";
+import { KeyboardAvoidingView, Image, View, TextInput, Button, Alert } from "react-native";
 import { storeData } from "./utils/storeData";
 import { postLogin } from "./utils/apis";
+import styled from "styled-components";
+
+
+const Back = styled(View)`
+  background-color: #005598;
+  flex: 1;
+  justifyContent: center;
+  alignItems: center;
+`;
+const Section1 = styled(View)`
+  resizeMode: cover;
+  margin-right: 10px;
+  margin-bottom: 130px;
+  object-fit: contain;
+`;
+const Section2 = styled(View)`
+  padding: 20px;
+  border-radius: 20px;
+  margin: 30px;
+`;
+const INPUT = styled(TextInput)`
+  background-color: #f6f6f6;
+  border: 1px;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 10px;
+  width: 200px;
+`;
+const BUTTON = styled(Button)`
+  border: 1px;
+  border-radius: 12px;
+  color: #f00;
+`;
 
 export default function LoginPage({ navigation }) {
   const [id, setId] = useState("");
@@ -22,36 +55,28 @@ export default function LoginPage({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="ID를 입력해주세요."
-        value={id}
-        onChangeText={(val) => setId(val)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password를 입력해주세요."
-        value={pw}
-        onChangeText={(val) => setPw(val)}
-        secureTextEntry={true}
-      />
-      <Button onPress={handleSubmit} title="로그인" />
-    </View>
+    <Back>
+      <Section1>
+        <Image 
+        source={require('../assets/cwnu_logo.jpg')}/>
+      </Section1>
+      <KeyboardAvoidingView behavior={'position'}>
+        <Section2>
+          <INPUT
+            placeholder="아이디"
+            value={id}
+            onChangeText={(val) => setId(val)}
+          />
+          <INPUT
+            placeholder="비밀번호"
+            value={pw}
+            onChangeText={(val) => setPw(val)}
+            secureTextEntry={true}
+          />
+          <BUTTON onPress={handleSubmit} title="로그인" />
+        </Section2>
+      </KeyboardAvoidingView>
+      
+    </Back>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  input: {
-    height: 40,
-    width: "70%",
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});

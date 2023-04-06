@@ -11,26 +11,27 @@ import { useRecoilState } from "recoil";
 import { ScrollView } from "react-native-gesture-handler";
 
 const Wrapper = styled(View)`
-  padding: 10px;
+  flex: 1;
+  padding: 15px;
 `;
 const Title = styled(Text)`
   font-size: 21px;
   font-weight: bold;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 const Section = styled(View)`
   padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px;
   border-radius: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 50px;
 `;
 const LectureList = styled(View)``;
 const Lecture = styled(View)`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 `;
 const Item = styled(View)`
   display: flex;
@@ -39,25 +40,35 @@ const Item = styled(View)`
   justify-content: space-between;
 `;
 const AttendanceList = styled(View)`
-  display: ${(props) => props.display};
   flex-direction: row;
   flex-wrap: wrap;
   gap: 3px;
 `;
 const Box = styled(Text)`
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   line-height: 40px;
   text-align: center;
+  justifyContent: center;
+  alignItems: center;
   background-color: ${(props) => props.color};
   color: white;
-  border-radius: 4px;
+  border-radius: 10px;
   overflow: hidden;
 `;
 const H1 = styled(Text)`
   display: flex;
   font-size: 18px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+`;
+const H2 = styled(Text)`
+  display: flex;
+  font-size: 18px;
+  margin-bottom: 15px;
+  background-color: #1D79CC;
+  width: 400px;
+  color: white;
+  padding: 10px;
 `;
 const Buttons = styled(View)`
   display: flex;
@@ -239,7 +250,7 @@ export default function LectureListPage({ navigation }) {
               ? lectures.lecture_list.map((lecture, idx) => (
                   <Lecture key={idx}>
                     <Item>
-                      <H1>{lecture.name}</H1>
+                      <H2>{lecture.name}</H2>
                     </Item>
                     <Item>
                       <AttendanceList>
