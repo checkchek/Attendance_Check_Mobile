@@ -147,6 +147,7 @@ export default function LectureListPage({ navigation }) {
 
   const onPressBio = async (lecture) => {
     const authResult = await LocalAuthentication.authenticateAsync();
+    console.log(authResult);
     if (authResult.success) {
       alert("본인 인증 완료");
       setBioCheck(true);
