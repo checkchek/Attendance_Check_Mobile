@@ -39,7 +39,6 @@ const Item = styled(View)`
   justify-content: space-between;
 `;
 const AttendanceList = styled(View)`
-  display: ${(props) => props.display};
   flex-direction: row;
   flex-wrap: wrap;
   gap: 3px;
@@ -47,9 +46,15 @@ const AttendanceList = styled(View)`
 const Box = styled(Text)`
   width: 36px;
   height: 36px;
-  line-height: 40px;
+  line-height: 36px;
   text-align: center;
   background-color: ${(props) => props.color};
+  ${(props) =>
+    props.border
+      ? `border: ${props.border};
+  line-height: 30px;
+  `
+      : null}
   color: white;
   border-radius: 4px;
   overflow: hidden;
@@ -122,20 +127,24 @@ export default function LectureListPage({ navigation }) {
   const valueToColor = (val) => {
     switch (val) {
       case -1:
-        return "gray";
+        return "#95a5a6";
       case 0:
-        return "green";
+        return "#27ae60";
       case 1:
-        return "yellow";
+        return "#f1c40f";
       case 2:
-        return "red";
+        return "#e74c3c";
       default:
-        return "gray";
+        return "#95a5a6";
     }
   };
 
   const onPressBio = async (lecture) => {
-    const authResult = await LocalAuthentication.authenticateAsync();
+    const authResult = await LocalAuthentication.authenticateAsync({
+      cancelLabel: "취소",
+      promptMessage: "본인 인증을 진행해주세요.",
+    });
+    console.log(authResult);
     if (authResult.success) {
       alert("본인 인증 완료");
       setBioCheck(true);
@@ -248,7 +257,15 @@ export default function LectureListPage({ navigation }) {
                           : attendacne
                               .find((atList) => atList.name === lecture.name)
                               ?.attendance[num]?.map((v, idx) => (
-                                <Box color={valueToColor(v)} key={idx}>
+                                <Box
+                                  border={
+                                    idx + 1 === week
+                                      ? "3px solid black"
+                                      : undefined
+                                  }
+                                  color={valueToColor(v)}
+                                  key={idx}
+                                >
                                   {idx + 1}
                                 </Box>
                               ))}
