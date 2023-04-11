@@ -1,26 +1,20 @@
 import React, { useState } from "react";
-import { KeyboardAvoidingView, Image, View, TextInput, Button, Alert } from "react-native";
+import { TouchableOpacity, StyleSheet, View, TextInput, Button, Text, Alert } from "react-native";
 import { storeData } from "./utils/storeData";
 import { postLogin } from "./utils/apis";
 import styled from "styled-components";
 
 
 const Back = styled(View)`
-  background-color: #005598;
   flex: 1;
   justifyContent: center;
   alignItems: center;
 `;
 const Section1 = styled(View)`
-  resizeMode: cover;
-  margin-right: 10px;
-  margin-bottom: 130px;
-  object-fit: contain;
-`;
-const Section2 = styled(View)`
-  padding: 20px;
+  padding: 30px;
+  border: 1px;
   border-radius: 20px;
-  margin: 30px;
+  alignItems: center;
 `;
 const INPUT = styled(TextInput)`
   background-color: #f6f6f6;
@@ -28,12 +22,7 @@ const INPUT = styled(TextInput)`
   border-radius: 12px;
   padding: 15px;
   margin: 10px;
-  width: 200px;
-`;
-const BUTTON = styled(Button)`
-  border: 1px;
-  border-radius: 12px;
-  color: #f00;
+  width: 220px;
 `;
 
 export default function LoginPage({ navigation }) {
@@ -56,27 +45,49 @@ export default function LoginPage({ navigation }) {
 
   return (
     <Back>
-      <Section1>
-        <Image 
-        source={require('../assets/cwnu_logo.jpg')}/>
-      </Section1>
-      <KeyboardAvoidingView behavior={'position'}>
-        <Section2>
+        <Section1 style={styles.box1}>
+          <Text style={styles.text}>Log In</Text>
           <INPUT
-            placeholder="아이디"
+            placeholder="ID를 입력해주세요."
             value={id}
             onChangeText={(val) => setId(val)}
           />
           <INPUT
-            placeholder="비밀번호"
+            placeholder="Password를 입력해주세요."
             value={pw}
             onChangeText={(val) => setPw(val)}
             secureTextEntry={true}
           />
-          <BUTTON onPress={handleSubmit} title="로그인" />
-        </Section2>
-      </KeyboardAvoidingView>
-      
+          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+            <Text style={styles.buttonText}>로그인</Text>
+          </TouchableOpacity>
+        </Section1>
     </Back>
   );
 }
+
+const styles = StyleSheet.create({
+  box1: {
+    
+  },
+  text: {
+    fontSize: 24,
+    color: '#000',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  button: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: '#007AFF',
+    borderRadius: 5,
+    marginVertical: 20,
+    width: 100,
+    alignItems: 'center',
+    marginBottom: 2,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+});

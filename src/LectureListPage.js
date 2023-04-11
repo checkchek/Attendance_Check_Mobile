@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Button, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Button, Text } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { getAttendanceList, getCheck } from "./utils/apis";
 import { getData } from "./utils/storeData";
@@ -25,7 +25,7 @@ const Section = styled(View)`
   border: 1px;
   border-radius: 15px;
   margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 `;
 const LectureList = styled(View)``;
 const Lecture = styled(View)`
@@ -65,14 +65,6 @@ const H2 = styled(Text)`
   display: flex;
   font-size: 18px;
   margin-bottom: 15px;
-  background-color: #1D79CC;
-  width: 400px;
-  color: white;
-  padding: 10px;
-`;
-const Buttons = styled(View)`
-  display: flex;
-  flex-direction: row;
 `;
 
 export default function LectureListPage({ navigation }) {
@@ -230,13 +222,14 @@ export default function LectureListPage({ navigation }) {
           curLecture.map((lecture, idx) => (
             <Item key={idx}>
               <H1>{lecture.name}</H1>
-              <Buttons>
-                <Button title="위치 인증" onPress={onPressLoc} />
-                <Button
-                  title="본인 인증"
-                  onPress={() => onPressBio(lecture.name)}
-                />
-              </Buttons>
+                <TouchableOpacity onPress={onPressLoc}
+                  style={styles.btn1}>
+                  <Text style={styles.buttonText}>위치 인증</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => onPressBio(lecture.name)}
+                  style={styles.btn2}>
+                <Text style={styles.buttonText}>본인 인증</Text>
+                </TouchableOpacity>
             </Item>
           ))
         ) : (
@@ -276,3 +269,24 @@ export default function LectureListPage({ navigation }) {
   );
 }
 
+const styles = StyleSheet.create({
+  btn1: {
+    paddingVertical: 10,
+    backgroundColor: '#007AFF',
+    borderRadius: 10,
+    width: 90,
+    alignItems: 'center',
+    marginLeft: 70,
+  },
+  btn2: {
+    paddingVertical: 10,
+    backgroundColor: '#007AFF',
+    borderRadius: 10,
+    width: 90,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+});

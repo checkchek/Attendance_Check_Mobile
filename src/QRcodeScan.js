@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { getDataCheck } from "./utils/apis";
 import { BackHandler } from "react-native";
@@ -72,7 +72,10 @@ export default function QRcodeScan() {
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <TouchableOpacity onPress={() => setScanned(false)}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Tap to Scan Again</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
@@ -84,5 +87,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: '#007AFF',
+    borderRadius: 10,
+    width: 180,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
