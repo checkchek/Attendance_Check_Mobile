@@ -10,14 +10,6 @@ const Back = styled(View)`
   justifyContent: center;
   alignItems: center;
 `;
-const INPUT = styled(TextInput)`
-  background-color: #f6f6f6;
-  border: 1px;
-  border-radius: 12px;
-  padding: 15px;
-  margin: 10px;
-  width: 220px;
-`;
 
 export default function LoginPage({ navigation }) {
   const [id, setId] = useState("");
