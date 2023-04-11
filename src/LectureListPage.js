@@ -48,14 +48,11 @@ const Box = styled(Text)`
   width: 40px;
   height: 40px;
   line-height: 40px;
-  text-align: center;
-  justifyContent: center;
-  alignItems: center;
   background-color: ${(props) => props.color};
   ${(props) =>
     props.border
       ? `border: ${props.border};
-  line-height: 30px;
+  line-height: 35px;
   `
       : null}
   color: white;
@@ -265,11 +262,12 @@ export default function LectureListPage({ navigation }) {
                                 <Box
                                   border={
                                     idx + 1 === week
-                                      ? "3px solid black"
+                                      ? "2px solid black"
                                       : undefined
                                   }
                                   color={valueToColor(v)}
-                                  key={idx}
+                                  key={idx} 
+                                  style={styles.box}
                                 >
                                   {idx + 1}
                                 </Box>
@@ -305,5 +303,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
+  },
+  box: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
