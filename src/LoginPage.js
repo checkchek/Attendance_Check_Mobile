@@ -10,12 +10,6 @@ const Back = styled(View)`
   justifyContent: center;
   alignItems: center;
 `;
-const Section1 = styled(View)`
-  padding: 30px;
-  border: 1px;
-  border-radius: 20px;
-  alignItems: center;
-`;
 const INPUT = styled(TextInput)`
   background-color: #f6f6f6;
   border: 1px;
@@ -45,43 +39,58 @@ export default function LoginPage({ navigation }) {
 
   return (
     <Back>
-        <Section1 style={styles.box1}>
-          <Text style={styles.text}>Log In</Text>
-          <INPUT
-            placeholder="ID를 입력해주세요."
-            value={id}
-            onChangeText={(val) => setId(val)}
-          />
-          <INPUT
-            placeholder="Password를 입력해주세요."
-            value={pw}
-            onChangeText={(val) => setPw(val)}
-            secureTextEntry={true}
-          />
-          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-            <Text style={styles.buttonText}>로그인</Text>
-          </TouchableOpacity>
-        </Section1>
+      <View style={styles.container}>
+        <Text style={styles.text}>Log In</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="ID를 입력해주세요."
+          value={id}
+          onChangeText={(val) => setId(val)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password를 입력해주세요."
+          value={pw}
+          onChangeText={(val) => setPw(val)}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+          <Text style={styles.buttonText}>로그인</Text>
+        </TouchableOpacity>
+      </View>
     </Back>
+    
   );
 }
 
 const styles = StyleSheet.create({
-  box1: {
-    
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 30,
+  },
+  input: {
+    height: 40,
+    width: 220,
+    margin: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
   },
   text: {
-    fontSize: 24,
+    fontSize: 20,
     color: '#000',
     textAlign: 'center',
-    marginBottom: 15,
+    marginBottom: 5,
   },
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: '#007AFF',
     borderRadius: 5,
-    marginVertical: 20,
+    marginVertical: 5,
     width: 100,
     alignItems: 'center',
     marginBottom: 2,

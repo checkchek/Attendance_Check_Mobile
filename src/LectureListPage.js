@@ -11,8 +11,7 @@ import { useRecoilState } from "recoil";
 import { ScrollView } from "react-native-gesture-handler";
 
 const Wrapper = styled(View)`
-  flex: 1;
-  padding: 15px;
+  padding: 10px;
 `;
 const Title = styled(Text)`
   font-size: 21px;
@@ -24,14 +23,14 @@ const Section = styled(View)`
   padding: 10px;
   border: 1px;
   border-radius: 15px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 const LectureList = styled(View)``;
 const Lecture = styled(View)`
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 `;
 const Item = styled(View)`
   display: flex;
@@ -45,26 +44,22 @@ const AttendanceList = styled(View)`
   gap: 3px;
 `;
 const Box = styled(Text)`
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
   background-color: ${(props) => props.color};
   ${(props) =>
     props.border
       ? `border: ${props.border};
-  line-height: 35px;
+  line-height: 30px;
   `
       : null}
   color: white;
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
 `;
 const H1 = styled(Text)`
-  display: flex;
-  font-size: 18px;
-  margin-bottom: 15px;
-`;
-const H2 = styled(Text)`
   display: flex;
   font-size: 18px;
   margin-bottom: 15px;
@@ -250,7 +245,7 @@ export default function LectureListPage({ navigation }) {
               ? lectures.lecture_list.map((lecture, idx) => (
                   <Lecture key={idx}>
                     <Item>
-                      <H2>{lecture.name}</H2>
+                      <H1>{lecture.name}</H1>
                     </Item>
                     <Item>
                       <AttendanceList>
