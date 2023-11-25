@@ -1,6 +1,6 @@
 import { getData } from "./storeData";
 
-export const API_URL = "http://192.168.1.3:3003";
+export const API_URL = "http://192.168.1.250:3003";
 
 export async function getLectures() {
   const num = await getData("num");
@@ -32,7 +32,7 @@ export async function getCheck(num, lectureId) {
 
   const getWeek = (date) => {
     const currentDate = date.getTime();
-    const firstDay = new Date("2023-03-02").getTime();
+    const firstDay = new Date("2023-09-01").getTime();
     const one = 84000000;
     return Math.floor((currentDate - firstDay) / one / 7) + 1;
   };
