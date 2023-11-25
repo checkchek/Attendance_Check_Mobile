@@ -1,4 +1,4 @@
-git clone -b master https://github.com/checkchek/Attendance_Check_Mobile.git(Latest version of code)
+git clone -b master https://github.com/checkchek/Attendance_Check_Mobile.git (Latest version of code)
 
 npm install -g expo-cli      
 
