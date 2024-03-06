@@ -1,6 +1,6 @@
 import { getData } from "./storeData";
 
-export const API_URL = "http://192.168.1.250:3003";
+export const API_URL = "http://172.20.10.10:3003";
 
 export async function getLectures() {
   const num = await getData("num");
